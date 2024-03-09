@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "BE Vietnam Pro", system-ui, Arial, sans-serif;
+  color: #000;
+  background-color: rgb(243 244 247);
+}
+
+.leaflet-container {
+  @apply z-0 w-full h-[640px];
+}
+
+.container {
+  @apply mx-auto max-w-[1620] w-full flex flex-col gap-8 mt-10 mb-28;
+}
+
+.header {
+  @apply font-semibold text-3xl;
+}
+
+.card {
+  @apply bg-white rounded-lg w-full p-4 shadow;
+}
+
+.map {
+  @apply w-full min-h-[500px] bg-blue-200 relative;
+}
+
+.map > .info-section {
+  @apply flex flex-col w-72 gap-4 absolute z-20 top-8 left-8;
+}
+
+.info-section > .info-card {
+  @apply bg-white/80  rounded-lg shadow;
+}
+
+.info-section > .info-card > .info-card-title {
+  @apply p-2 border-b text-center text-sm;
+}
+
+.info-section > .info-card > .info-card-content {
+  @apply p-4 text-center text-2xl font-semibold;
+}
+
+.categories {
+  @apply flex border-2 rounded-full border-primary overflow-hidden;
+}
+
+.categories > button {
+  @apply flex-grow text-sm p-3 text-primary hover:bg-primary hover:text-white active:bg-primary/80;
+}
+
+.categories > button.active {
+  @apply bg-primary text-white hover:bg-primary/90;
+}
+
+.data-table {
+  @apply border text-sm table-auto w-full;
+}
+
+.data-table thead th {
+  @apply font-medium p-3 text-left;
+}
+
+.data-table tbody td {
+  @apply p-3 font-light whitespace-nowrap;
+}
+
+.data-table tbody tr:nth-child(odd) {
+  @apply bg-gray-100;
+}
+
+.pagination > button {
+  @apply border px-3 py-2 text-sm text-primary enabled:hover:bg-gray-50 enabled:active:bg-gray-100 disabled:opacity-60;
+}
+
+.pagination > button.active {
+  @apply bg-primary enabled:hover:bg-primary/90 text-white;
+}
