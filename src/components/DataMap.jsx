@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import { useFarmData } from "../data/useFarmData";
 import { useEffect, useState } from "react";
 import Summaries from "./Summaries";
@@ -53,13 +53,14 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
 
   return (
     <div>
-      <div className="map ">
+      <div className="map">
         <Summaries data={summary} selectedFarmId={selectedFarmId}></Summaries>
 
         <MapContainer
           center={[-7.085, 107.952]}
           zoom={7}
           scrollWheelZoom={false}
+          zoomControl={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -77,6 +78,8 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
               showTooltips={!selectedFarmId ? true : false}
             ></CustomMarker>
           ))}
+
+          <ZoomControl position="topright"></ZoomControl>
         </MapContainer>
       </div>
     </div>
