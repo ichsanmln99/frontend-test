@@ -41,8 +41,6 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
     if (summary.goodSatisfactionUnits.includes(summaryId)) return "green";
     if (summary.averageSatisfactionUnits.includes(summaryId)) return "orange";
     if (summary.poorSatisfactionUnits.includes(summaryId)) return "red";
-
-    return "green";
   }
 
   useEffect(() => {
@@ -56,12 +54,7 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
       <div className="map">
         <Summaries data={summary} selectedFarmId={selectedFarmId}></Summaries>
 
-        <MapContainer
-          center={[-7.085, 107.952]}
-          zoom={7}
-          scrollWheelZoom={false}
-          zoomControl={false}
-        >
+        <MapContainer center={[-7.085, 107.952]} zoom={7} zoomControl={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
