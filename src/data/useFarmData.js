@@ -151,7 +151,7 @@ export function useFarmData() {
     if (id) {
       data = data.map((data) => ({
         id: data.heldUnit,
-        name: data.heldUnit + "- PT " + data.companyInitial,
+        name: data.heldUnit + " - PT " + data.companyInitial,
         coordinate: data.coordinate,
       }));
     } else {
