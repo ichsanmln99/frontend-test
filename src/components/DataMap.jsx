@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Summaries from "./Summaries";
 import CustomMarker from "./CustomMarker";
 
-function DataMap({ selectedFarmId, onMarkerClick }) {
+function DataMap({ selectedFarmId, onMarkerClick, range }) {
   const farmData = useFarmData();
   const [summary, setSummary] = useState({
     averageSatisfaction: 0,
@@ -18,7 +18,7 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
   const [coordinates, setCoordinates] = useState([]);
 
   function getSummary() {
-    const data = farmData.getSummary(selectedFarmId);
+    const data = farmData.getSummary(selectedFarmId, range);
 
     console.log(data);
 
@@ -26,7 +26,7 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
   }
 
   function getUnitsCoordinate() {
-    const data = farmData.getUnitsCoordinate(selectedFarmId);
+    const data = farmData.getUnitsCoordinate(selectedFarmId, range);
 
     setCoordinates(data);
   }
@@ -82,6 +82,7 @@ function DataMap({ selectedFarmId, onMarkerClick }) {
 DataMap.propTypes = {
   selectedFarmId: PropTypes.number,
   onMarkerClick: PropTypes.func,
+  range: PropTypes.object,
 };
 
 export default DataMap;

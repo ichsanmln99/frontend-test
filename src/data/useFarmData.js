@@ -3,26 +3,38 @@ import data from "../assets/data.json";
 const PAGE_SIZE = 10;
 
 export function useFarmData() {
-  function get(id, pageIndex = 1) {
-    const result = getData(id);
+  function get(id, pageIndex = 1, range) {
+    const result = getData(id, range);
 
     const sortedResult = sortData(result, "averageRatingSatisfaction");
 
     return paginate(sortedResult, { pageSize: PAGE_SIZE, pageIndex });
   }
 
-  function getFarms() {
-    const heldUnitData = data.data.map((data) => ({
+  function getFarms(range) {
+    const data = getData(null, range);
+
+    const companies = data.map((data) => ({
       id: data.companyId,
       name: data.company,
       initial: data.companyInitial,
     }));
 
-    return uniqueArrayObjectsByValue(heldUnitData, "id");
+    return uniqueArrayObjectsByValue(companies, "id");
   }
 
-  function getData(id) {
-    return !id ? data.data : data.data.filter((data) => data.companyId === id);
+  function getData(id, range) {
+    let result = id
+      ? data.data.filter((data) => data.companyId === id)
+      : data.data;
+
+    if (range) {
+      result = result.filter((data) =>
+        dateCheck(range.startDate, range.endDate, data.updatedAt)
+      );
+    }
+
+    return result;
   }
 
   function paginate(data, { pageSize, pageIndex }) {
@@ -53,8 +65,8 @@ export function useFarmData() {
     return array.sort((a, b) => b[property] - a[property]);
   }
 
-  function getSummary(id) {
-    const data = getData(id);
+  function getSummary(id, range) {
+    const data = getData(id, range);
     const result = {
       averageSatisfaction: 0,
       totalUnits: 0,
@@ -145,8 +157,8 @@ export function useFarmData() {
     return array.length > 0 ? summedArray / array.length : 0;
   }
 
-  function getUnitsCoordinate(id) {
-    let data = getData(id);
+  function getUnitsCoordinate(id, range) {
+    let data = getData(id, range);
 
     if (id) {
       data = data.map((data) => ({
@@ -165,6 +177,18 @@ export function useFarmData() {
     const units = uniqueArrayObjectsByValue(data, "id");
 
     return units;
+  }
+
+  function dateCheck(from, to, check) {
+    let fDate, lDate, cDate;
+    fDate = Date.parse(from);
+    lDate = Date.parse(to);
+    cDate = Date.parse(check);
+
+    if (cDate <= lDate && cDate >= fDate) {
+      return true;
+    }
+    return false;
   }
 
   return { get, getSummary, getFarms, getUnitsCoordinate };

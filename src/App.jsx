@@ -20,21 +20,31 @@ function App() {
     totalPages: 0,
   });
 
+  const range = {
+    startDate: new Date("2023-12-18"),
+    endDate: new Date("2024-12-18"),
+  };
+
   function getFarmProductions(id, pageIndex = 1) {
-    const data = farmData.get(id, pageIndex);
+    const data = farmData.get(id, pageIndex, range);
 
     setFarmsProductions(data.data);
     setTablePagination(data.pagination);
   }
 
   function getFarms() {
-    const data = farmData.getFarms();
+    const data = farmData.getFarms(range);
 
     setFarms(data);
   }
 
   function selectFarm(id) {
     setSelectedFarmId(id);
+  }
+
+  function formatDate(rawDate) {
+    const date = new Date(rawDate);
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   }
 
   useEffect(() => {
@@ -52,13 +62,15 @@ function App() {
         <h1 className="header">Pelayanan PPL</h1>
 
         <div className="card text-center text-sm">
-          <span className="text-xs mr-2">Tanggal Preview</span> 18-12-2023 -
-          8-12-2024
+          <span className="text-xs mr-2">Tanggal Preview</span>{" "}
+          {formatDate(range.startDate)} -{" "}
+          {formatDate(range.endDate.toLocaleDateString())}
         </div>
 
         <DataMap
           selectedFarmId={selectedFarmId}
           onMarkerClick={selectFarm}
+          range={range}
         ></DataMap>
 
         <FarmListOption

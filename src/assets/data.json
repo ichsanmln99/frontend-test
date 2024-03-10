@@ -184,6 +184,7 @@
       "companyId": 3,
       "company": "PT Tani Makmur Jaya",
       "companyInitial": "TMJ",
+      "coordinate": [-7.476857400769451, 108.01026275465514],
       "heldUnit": "C3",
       "averageIP": 220,
       "averageFCR": 1.1,
